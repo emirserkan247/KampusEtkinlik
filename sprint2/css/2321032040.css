@@ -1,0 +1,137 @@
+/* Emir Serkan İşci 2321032040 */
+:root {
+  --no: 2321032040;
+  --ton: 80;
+  --renk-ana: hsl(var(--ton) 65% 38%);
+  --renk-zemin: hsl(var(--ton) 30% 97%);
+  --font: Arial, sans-serif;
+  --bosluk-m: 1rem; 
+  --kose: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body { 
+  font-family: var(--font); 
+  background-color: var(--renk-zemin); 
+  color: var(--renk-ana); 
+  padding: var(--bosluk-m);
+}
+
+header, main, footer {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+nav {
+  margin: var(--bosluk-m) 0;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: var(--renk-ana);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.etkinlik-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bosluk-m);
+  margin-top: var(--bosluk-m);
+}
+
+.etkinlik-kart {
+  background-color: white;
+  border: 1px solid var(--renk-ana);
+  border-radius: var(--kose);
+  padding: var(--bosluk-m);
+  display: flex;
+  flex-direction: column;
+}
+
+.etkinlik-kart a {
+  margin-top: 15px;
+  color: var(--renk-ana);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.detay-kapsayici {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bosluk-m);
+  background: white;
+  padding: var(--bosluk-m);
+  border: 1px solid var(--renk-ana);
+  border-radius: var(--kose);
+}
+
+.detay-kapsayici img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--kose);
+}
+
+dt { font-weight: bold; margin-top: 10px; }
+dd { margin-bottom: 10px; }
+
+form {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: var(--bosluk-m);
+  border: 1px solid var(--renk-ana);
+  border-radius: var(--kose);
+}
+
+label { font-weight: bold; margin-top: 10px; }
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid var(--renk-ana);
+  border-radius: var(--kose);
+  font-family: var(--font);
+}
+
+input:invalid, select:invalid, textarea:invalid {
+  border: 2px solid red;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: var(--renk-ana);
+  color: white;
+  border: none;
+  border-radius: var(--kose);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+footer { margin-top: 40px; border-top: 1px solid var(--renk-ana); padding-top: 10px; }
+
+@media (min-width: 768px) {
+  .etkinlik-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  }
+  
+  .detay-kapsayici {
+    flex-direction: row;
+  }
+  
+  .detay-kapsayici figure { flex: 1; }
+  .detay-kapsayici dl { flex: 2; }
+}
