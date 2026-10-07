@@ -10,4 +10,4 @@ Web Teknolojileri ve Programlama dersi kapsamında sprintler halinde geliştiril
 
 ## Canlı Demo
 
-[Vercel üzerinde görüntüle](https://vercel.com/emir-32df/kampusetkinlik-sprint2/3L3VUkovTHUw6VJMBMDTL9cqWFUK)
+[Vercel üzerinde görüntüle](https://kampusetkinlik-sprint2.vercel.app/)
