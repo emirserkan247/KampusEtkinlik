@@ -1,16 +1,16 @@
-# Kampüs Etkinlikleri Sistemi - Sprint 2
+# Kampüs Etkinlikleri — Sprint 2
 
-Bu proje, Web Teknolojileri ve Programlama dersi kapsamında geliştirilen Kampüs Etkinlikleri platformunun 2. Sprint (CSS ve Responsive) teslimidir.
+Bu sprintte Sprint 1'de oluşturulan HTML yapısı korunarak projeye **CSS ve responsive tasarım** eklendi.
 
-## 🚀 Canlı Demo
-Projeyi canlı olarak incelemek için tıklayın: **[Kampüs Etkinlikleri Yayında](https://kampusetkinlik-sprint2.vercel.app)**
+## Yapılanlar
 
-## 👤 Geliştirici Bilgileri
-* **Ad Soyad:** Emir Serkan İşci
-* **Öğrenci Numarası:** 2321032040
+- Proje için ortak bir CSS dosyası oluşturuldu.
+- Renkler ve tasarım özellikleri CSS değişkenleri kullanılarak düzenlendi.
+- Etkinlikler kart yapısına dönüştürüldü.
+- Sayfa düzeninde CSS Grid kullanıldı.
+- Formlar ve diğer HTML elemanları stillendirildi.
+- Mobil öncelikli (mobile-first) responsive tasarım uygulandı.
+- Farklı ekran boyutları için media query kullanıldı.
+- Form hata mesajlarının görsel stilleri oluşturuldu.
 
-## 🛠️ Sprint 2 ile Eklenen Özellikler
-* **Kişiselleştirilmiş Tasarım:** Öğrenci numarası formülüne dayalı eşsiz yeşil renk paleti (`--ton: 80`) ve tipografi (Arial) kullanılmıştır.
-* **Modern Grid Mimarisi:** İlkel tablo (`<table>`) yapısı tamamen silinerek, etkinlikler `<section>` ve `<article>` tabanlı CSS Grid sistemine geçirilmiştir.
-* **Mobile First (Önce Mobil):** Arayüz öncelikle telefon ekranlarına (dar ekran) tam uyumlu olacak şekilde tasarlanmış, masaüstü görünümler `@media` sorguları ile genişletilmiştir. Taşmalar engellenmiştir.
-* **Gelişmiş Form Validasyonu:** Zorunlu tutulan veya boş bırakılan alanlar için anında kırmızı çerçeveli uyarı (`:invalid`) sistemi eklenmiştir.
+Bu sprintte projenin HTML yapısı görsel olarak geliştirilerek farklı ekran boyutlarına uyumlu hale getirildi.
