@@ -7,6 +7,7 @@ Web Teknolojileri ve Programlama dersi kapsamında sprintler halinde geliştiril
 - Sprint 1 — HTML
 - Sprint 2 — CSS ve Responsive Tasarım
 - Sprint 3 — JavaScript
+- Sprint 4 (Frontend) – React + TypeScript (Vite), bkz. [frontend](frontend/README.md)
 
 ## Canlı Demo
 
