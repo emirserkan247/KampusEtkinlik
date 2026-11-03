@@ -12,6 +12,7 @@ function AddEventPage() {
 
   function handleSubmit(data: EventFormData) {
     addEvent(toEventInput(data));
+    window.alert("Etkinlik başarıyla eklendi!");
     navigate("/admin");
   }
 

@@ -15,10 +15,10 @@ function AdminPage() {
 
   return (
     <>
-      <h2>Etkinlik Yönetimi</h2>
-      <p>
+      <h2 className="sayfa-baslik">Etkinlik Yönetimi</h2>
+      <p className="ust-eylem">
         <Link to="/admin/new" className="buton">
-          Yeni Etkinlik
+          + Yeni Etkinlik
         </Link>
       </p>
 
@@ -43,9 +43,12 @@ function AdminPage() {
                 <td data-label="Tarih">{formatDate(event.date)}</td>
                 <td data-label="Kontenjan">{event.capacity}</td>
                 <td data-label="İşlemler" className="islemler">
-                  <Link to={`/admin/${event.id}/edit`}>Düzenle</Link>
+                  <Link to={`/admin/${event.id}/edit`} className="buton">
+                    Düzenle
+                  </Link>
                   <button
                     type="button"
+                    className="buton buton-sil"
                     onClick={() => handleDelete(event.id, event.title)}
                   >
                     Sil

@@ -155,7 +155,42 @@ nav a.active {
   text-decoration: underline;
 }
 
-.buton,
+.buton {
+  display: inline-block;
+  margin-top: 0;
+  padding: 10px 16px;
+  background-color: var(--renk-ana);
+  color: white;
+  border: none;
+  border-radius: var(--kose);
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.buton:hover {
+  filter: brightness(0.9);
+}
+
+.buton-sil {
+  background-color: #c62828;
+}
+
+.sayfa-baslik {
+  margin-bottom: 1.25rem;
+}
+
+.ust-eylem {
+  margin-bottom: 1.5rem;
+}
+
+.alt-eylem {
+  margin-top: 2rem;
+}
+
 .etkinlik-kart a,
 .eylemler a {
   color: var(--renk-ana);
@@ -186,7 +221,7 @@ nav a.active {
   gap: var(--bosluk-m);
 }
 
-.veri-tablosu .islemler button {
+.veri-tablosu .islemler .buton {
   margin-top: 0;
 }
 

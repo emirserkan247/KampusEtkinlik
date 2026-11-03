@@ -25,6 +25,7 @@ function EditEventPage() {
 
   function handleSubmit(data: EventFormData) {
     updateEvent(event!.id, toEventInput(data));
+    window.alert("Etkinlik başarıyla güncellendi!");
     navigate("/admin");
   }
 

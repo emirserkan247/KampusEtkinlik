@@ -15,9 +15,11 @@ function HomePage() {
       <p>Fakültedeki seminer, atölye ve söyleşileri tek yerden takip edin.</p>
       <h2>Yaklaşan {upcoming.length} Etkinlik</h2>
       <EventList events={upcoming} emptyText="Yaklaşan etkinlik yok." />
-      <Link to="/events">
-        <strong>Tüm etkinlikleri gör &rarr;</strong>
-      </Link>
+      <p className="alt-eylem">
+        <Link to="/events" className="buton">
+          Tüm etkinlikleri gör &rarr;
+        </Link>
+      </p>
     </>
   );
 }
