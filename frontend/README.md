@@ -2,7 +2,7 @@
 
 Emir Serkan İşci - 2321032040
 
-**Canlı Bağlantı / Live (Vercel):** https://VERCEL-LINKINIZI-BURAYA-YAZIN.vercel.app
+**Canlı Bağlantı / Live (Vercel):** https://emirserkanisci-frontend.vercel.app
 
 ## Kurulum (Installation)
 
