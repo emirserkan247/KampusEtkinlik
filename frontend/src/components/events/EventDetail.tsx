@@ -1,26 +1,12 @@
+import { Link } from "react-router-dom";
 import type { CampusEvent } from "../../types/campus-event";
 import { formatDate } from "../../utils/format-date";
 
 interface EventDetailProps {
-  event: CampusEvent | undefined;
-  onBack: () => void;
-  onEdit: (id: string) => void;
+  event: CampusEvent;
 }
 
-function EventDetail({ event, onBack, onEdit }: EventDetailProps) {
-  if (!event) {
-    return (
-      <section className="detay-kapsayici">
-        <div className="hata">
-          <p>Etkinlik bulunamadı.</p>
-          <button type="button" onClick={onBack}>
-            Listeye dön
-          </button>
-        </div>
-      </section>
-    );
-  }
-
+function EventDetail({ event }: EventDetailProps) {
   return (
     <section className="detay-kapsayici">
       {event.image && (
@@ -53,12 +39,10 @@ function EventDetail({ event, onBack, onEdit }: EventDetailProps) {
 
         <p>{event.description}</p>
 
-        <button type="button" onClick={onBack}>
-          &larr; Listeye dön
-        </button>{" "}
-        <button type="button" onClick={() => onEdit(event.id)}>
-          Bu etkinliği güncelle
-        </button>
+        <p className="eylemler">
+          <Link to="/events">&larr; Listeye dön</Link>{" "}
+          <Link to={`/admin/${event.id}/edit`}>Bu etkinliği güncelle</Link>
+        </p>
       </div>
     </section>
   );

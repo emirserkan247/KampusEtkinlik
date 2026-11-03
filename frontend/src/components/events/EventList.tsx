@@ -3,16 +3,15 @@ import EventCard from "./EventCard";
 
 interface EventListProps {
   events: CampusEvent[];
-  onShowDetail: (id: string) => void;
   emptyText?: string;
 }
 
-function EventList({ events, onShowDetail, emptyText }: EventListProps) {
+function EventList({ events, emptyText }: EventListProps) {
   return (
     <section className="etkinlik-grid">
       {events.length === 0 && emptyText && <p>{emptyText}</p>}
       {events.map((event) => (
-        <EventCard key={event.id} event={event} onShowDetail={onShowDetail} />
+        <EventCard key={event.id} event={event} />
       ))}
     </section>
   );

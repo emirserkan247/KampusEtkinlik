@@ -151,10 +151,92 @@ button {
   margin-top: 10px;
 }
 
+nav a.active {
+  text-decoration: underline;
+}
+
+.buton,
+.etkinlik-kart a,
+.eylemler a {
+  color: var(--renk-ana);
+  font-weight: bold;
+}
+
+.eylemler a {
+  margin-right: var(--bosluk-m);
+}
+
+.veri-tablosu {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  margin-top: var(--bosluk-m);
+}
+
+.veri-tablosu th,
+.veri-tablosu td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--renk-ana);
+}
+
+.veri-tablosu .islemler {
+  display: flex;
+  align-items: center;
+  gap: var(--bosluk-m);
+}
+
+.veri-tablosu .islemler button {
+  margin-top: 0;
+}
+
 footer {
   margin-top: 40px;
   border-top: 1px solid var(--renk-ana);
   padding-top: 10px;
+}
+
+@media (max-width: 699px) {
+  .veri-tablosu,
+  .veri-tablosu tbody,
+  .veri-tablosu tr,
+  .veri-tablosu td {
+    display: block;
+    width: 100%;
+  }
+
+  .veri-tablosu thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .veri-tablosu tr {
+    border: 1px solid var(--renk-ana);
+    border-radius: var(--kose);
+    padding: 5px var(--bosluk-m);
+    margin-bottom: var(--bosluk-m);
+  }
+
+  .veri-tablosu td {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--bosluk-m);
+    text-align: right;
+    border-bottom: 1px dashed var(--renk-ana);
+  }
+
+  .veri-tablosu td:last-child {
+    border-bottom: none;
+  }
+
+  .veri-tablosu td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-align: left;
+  }
 }
 
 @media (min-width: 768px) {

@@ -1,5 +1,4 @@
-import type { Category } from "../../types/campus-event";
-import { events } from "../../data/events";
+import { CATEGORIES, type Category } from "../../types/campus-event";
 
 interface EventFilterProps {
   searchText: string;
@@ -14,8 +13,6 @@ function EventFilter({
   onSearchChange,
   onCategoryChange,
 }: EventFilterProps) {
-  const categories = [...new Set(events.map((e) => e.category))];
-
   return (
     <form className="filtre" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor="arama">Etkinlik ara</label>
@@ -33,7 +30,7 @@ function EventFilter({
         onChange={(e) => onCategoryChange(e.target.value as Category | "")}
       >
         <option value="">Tümü</option>
-        {categories.map((c) => (
+        {CATEGORIES.map((c) => (
           <option key={c} value={c}>
             {c}
           </option>

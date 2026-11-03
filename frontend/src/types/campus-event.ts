@@ -11,3 +11,7 @@ export interface CampusEvent {
   description: string;
   image?: string;
 }
+
+export type CampusEventInput = Omit<CampusEvent, "id">;
+
+export const CATEGORIES: Category[] = ["Seminer", "Atölye", "Söyleşi", "Yarışma"];
