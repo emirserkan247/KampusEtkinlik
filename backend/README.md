@@ -1,31 +1,33 @@
-# Kampüs Etkinlik Sistemi API 🚀
+# Kampüs Etkinlik API 🚀
 
-Bu proje, SDÜ öğrencileri için geliştirilen Kampüs Etkinlik Sistemi'nin backend API servisidir. Express.js kullanılarak geliştirilmiştir.
+SDÜ Kampüs Etkinlik Sistemi için Express.js REST API.
 
-## 🛠 Kullanılan Teknolojiler
-* Node.js & Express.js
-* CORS (Cross-Origin Resource Sharing)
-* dotenv (Ortam değişkenleri yönetimi)
+## 🚀 Çalıştırma
 
-## 📌 API Endpointleri
+```bash
+cd backend
+cp .env.example .env   # Windows: copy .env.example .env
+npm install
+npm run dev            # geliştirme modu (npm start: normal mod)
+```
 
-| Metot | Endpoint | Açıklama |
-|---|---|---|
-| GET | `/health` | API durumunu ve öğrenci bilgisini döner. |
-| GET | `/events` | Tüm SDÜ etkinliklerini listeler. |
-| GET | `/events/:id` | ID'si verilen spesifik bir etkinliği getirir. |
-| POST | `/events` | Sisteme yeni bir etkinlik ekler. |
+Port, `.env.example` dosyasından kopyalanan `backend/.env` içindeki `PORT` değişkeniyle ayarlanır. Tanımlı değilse varsayılan `3000` kullanılır:
 
-## 🚀 Kurulum ve Çalıştırma
+```env
+PORT=3000
+```
 
-1. Gerekli paketleri yükleyin:
-   ```bash
-   npm install
-   ```
+API adresi: `http://localhost:3000`
 
-2. Sunucuyu geliştirme modunda başlatın:
-   ```bash
-   npm run dev
-   ```
+## 📌 REST Sözleşmesi
 
-   API varsayılan olarak `http://localhost:3000` adresinde çalışır.
+| Metot | Endpoint | Açıklama | Başarı | Hata | Durum |
+|---|---|---|---|---|---|
+| GET | `/health` | API durumu | `200` | - | ✅ Hazır |
+| GET | `/events` | Etkinlikleri listeler | `200` | - | ✅ Hazır |
+| GET | `/events/:id` | Tek etkinlik getirir | `200` | `404` | ✅ Hazır |
+| POST | `/events` | Etkinlik ekler (`title`, `category`, `date` zorunlu) | `201` | `400` | ✅ Hazır |
+| PATCH | `/events/:id` | Etkinliği kısmen günceller | `200` | `400`, `404` | ✅ Hazır |
+| DELETE | `/events/:id` | Etkinliği siler | `204` | `404` | ✅ Hazır |
+
+Hata formatı: `{ "error": { "message": "..." } }`
