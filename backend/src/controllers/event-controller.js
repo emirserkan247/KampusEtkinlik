@@ -1,63 +1,79 @@
-import { events } from "../data/events.js";
+import mongoose from "mongoose";
+import { Event } from "../models/event-model.js";
 
-export const getEvents = (req, res) => {
-  res.status(200).json(events);
+const notFound = (res) =>
+  res.status(404).json({ error: { message: "Event not found" } });
+
+const handleError = (err, res, next) => {
+  if (err.name === "ValidationError") {
+    return res.status(400).json({ error: { message: err.message } });
+  }
+  return next(err);
 };
 
-export const getEventById = (req, res) => {
-  const event = events.find((e) => e.id === req.params.id);
-  if (!event) {
-    return res.status(404).json({ error: { message: "Event not found" } });
+export const getEvents = async (req, res, next) => {
+  try {
+    const filter = req.query.category ? { category: req.query.category } : {};
+    const events = await Event.find(filter).sort({ date: 1 });
+    res.json(events);
+  } catch (err) {
+    next(err);
   }
-  res.status(200).json(event);
 };
 
-export const createEvent = (req, res) => {
-  const { title, category, date, capacity, time, location, description } = req.body ?? {};
-  if (!title || !category || !date) {
-    return res
-      .status(400)
-      .json({ error: { message: "title, category and date are required" } });
-  }
-  const newEvent = {
-    id: `event-${Date.now()}`,
-    title,
-    category,
-    capacity,
-    date,
-    time,
-    location,
-    description,
-  };
-  events.push(newEvent);
-  res.status(201).json(newEvent);
-};
-
-export const updateEvent = (req, res) => {
-  const event = events.find((e) => e.id === req.params.id);
-  if (!event) {
-    return res.status(404).json({ error: { message: "Event not found" } });
-  }
-  const allowed = ["title", "category", "capacity", "date", "time", "location", "description"];
-  const body = req.body ?? {};
-  const updates = Object.fromEntries(allowed.filter((k) => k in body).map((k) => [k, body[k]]));
-  if (Object.keys(updates).length === 0) {
-    return res.status(400).json({ error: { message: "No valid fields to update" } });
-  }
-  for (const k of ["title", "category", "date"]) {
-    if (k in updates && !updates[k]) {
-      return res.status(400).json({ error: { message: `${k} cannot be empty` } });
+export const getEventById = async (req, res, next) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return notFound(res);
     }
+    const event = await Event.findById(req.params.id);
+    if (!event) {
+      return notFound(res);
+    }
+    res.json(event);
+  } catch (err) {
+    next(err);
   }
-  Object.assign(event, updates);
-  res.status(200).json(event);
 };
 
-export const deleteEvent = (req, res) => {
-  const index = events.findIndex((e) => e.id === req.params.id);
-  if (index === -1) {
-    return res.status(404).json({ error: { message: "Event not found" } });
+export const createEvent = async (req, res, next) => {
+  try {
+    const event = await Event.create(req.body ?? {});
+    res.status(201).json(event);
+  } catch (err) {
+    handleError(err, res, next);
   }
-  events.splice(index, 1);
-  res.status(204).end();
+};
+
+export const updateEvent = async (req, res, next) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return notFound(res);
+    }
+    const event = await Event.findByIdAndUpdate(req.params.id, req.body ?? {}, {
+      new: true,
+      runValidators: true,
+    });
+    if (!event) {
+      return notFound(res);
+    }
+    res.json(event);
+  } catch (err) {
+    handleError(err, res, next);
+  }
+};
+
+export const deleteEvent = async (req, res, next) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return notFound(res);
+    }
+    const event = await Event.findByIdAndDelete(req.params.id);
+    if (!event) {
+      return notFound(res);
+    }
+    res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
 };

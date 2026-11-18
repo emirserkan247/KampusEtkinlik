@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "b94c6a79-9620-40ff-8840-055ae3ecd220",
     "name": "Kampüs API",
-    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "description": "Kampüs Etkinlik API (Sprint 8 - MongoDB). GET /events çıktısından bir _id kopyalayıp eventId değişkenine yazın.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "60115821",
     "_collection_link": "https://go.postman.co/collection/60115821-b94c6a79-9620-40ff-8840-055ae3ecd220?source=collection_link"
@@ -47,12 +47,12 @@
       "response": []
     },
     {
-      "name": "GET /events/event-2",
+      "name": "GET /events/:id",
       "request": {
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/events/event-2",
+          "raw": "http://localhost:3000/events/{{eventId}}",
           "protocol": "http",
           "host": [
             "localhost"
@@ -60,7 +60,7 @@
           "port": "3000",
           "path": [
             "events",
-            "event-2"
+            "{{eventId}}"
           ]
         }
       },
@@ -72,7 +72,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/events/88",
+          "raw": "http://localhost:3000/events/111111",
           "protocol": "http",
           "host": [
             "localhost"
@@ -80,7 +80,7 @@
           "port": "3000",
           "path": [
             "events",
-            "88"
+            "111111"
           ]
         }
       },
@@ -90,10 +90,15 @@
       "name": "POST /events",
       "request": {
         "method": "POST",
-        "header": [],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"title\": \"Bahar Şenliği Konseri\",\r\n  \"category\": \"Eğlence\",\r\n  \"capacity\": 500,\r\n  \"date\": \"2027-05-15\"\r\n}",
+          "raw": "{\n  \"title\": \"Bahar Şenliği Konseri\",\n  \"category\": \"Seminer\",\n  \"capacity\": 500,\n  \"date\": \"2027-05-15\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -118,10 +123,15 @@
       "name": "POST /events (sadece title)",
       "request": {
         "method": "POST",
-        "header": [],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"title\": \"Bahar Şenliği Konseri\"\r\n}",
+          "raw": "{\n  \"title\": \"Bahar Şenliği Konseri\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -141,6 +151,13 @@
         }
       },
       "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "eventId",
+      "value": "BURAYA_MONGODB_ID",
+      "type": "string"
     }
   ]
 }
