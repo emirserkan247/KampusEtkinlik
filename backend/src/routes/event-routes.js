@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getEvents,
+  getUpcomingEvents,
   getEventById,
   createEvent,
   updateEvent,
@@ -10,6 +11,7 @@ import {
 const router = express.Router();
 
 router.get("/", getEvents);
+router.get("/upcoming", getUpcomingEvents);
 router.get("/:id", getEventById);
 router.post("/", createEvent);
 router.patch("/:id", updateEvent);
