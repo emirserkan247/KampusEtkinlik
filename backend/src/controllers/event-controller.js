@@ -1,20 +1,36 @@
 import mongoose from "mongoose";
 import { Event } from "../models/event-model.js";
+import { todayStart } from "../utils/date.js";
 
-const notFound = (res) =>
-  res.status(404).json({ error: { message: "Event not found" } });
+const KORUNAN_ALANLAR = ["_id", "createdAt", "updatedAt", "__v"];
 
-const handleError = (err, res, next) => {
-  if (err.name === "ValidationError") {
-    return res.status(400).json({ error: { message: err.message } });
-  }
-  return next(err);
-};
+function notFound(res) {
+  return res.status(404).json({ error: { message: "Event not found" } });
+}
+
+function isClientError(err) {
+  return err.name === "ValidationError" || err.name === "CastError";
+}
 
 export const getEvents = async (req, res, next) => {
   try {
-    const filter = req.query.category ? { category: req.query.category } : {};
+    const { category, search } = req.query;
+    const filter = {};
+    if (category) filter.category = category;
+    if (search) {
+      const guvenli = String(search).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      filter.title = { $regex: guvenli, $options: "i" };
+    }
     const events = await Event.find(filter).sort({ date: 1 });
+    res.json(events);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getUpcomingEvents = async (req, res, next) => {
+  try {
+    const events = await Event.find({ date: { $gte: todayStart() } }).sort({ date: 1, time: 1 });
     res.json(events);
   } catch (err) {
     next(err);
@@ -23,13 +39,9 @@ export const getEvents = async (req, res, next) => {
 
 export const getEventById = async (req, res, next) => {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) {
-      return notFound(res);
-    }
+    if (!mongoose.isValidObjectId(req.params.id)) return notFound(res);
     const event = await Event.findById(req.params.id);
-    if (!event) {
-      return notFound(res);
-    }
+    if (!event) return notFound(res);
     res.json(event);
   } catch (err) {
     next(err);
@@ -41,37 +53,43 @@ export const createEvent = async (req, res, next) => {
     const event = await Event.create(req.body ?? {});
     res.status(201).json(event);
   } catch (err) {
-    handleError(err, res, next);
+    if (isClientError(err)) {
+      return res.status(400).json({ error: { message: err.message } });
+    }
+    next(err);
   }
 };
 
 export const updateEvent = async (req, res, next) => {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) {
-      return notFound(res);
+    if (!mongoose.isValidObjectId(req.params.id)) return notFound(res);
+    const body = req.body ?? {};
+    if (Object.keys(body).length === 0) {
+      return res.status(400).json({ error: { message: "Body is empty" } });
     }
-    const event = await Event.findByIdAndUpdate(req.params.id, req.body ?? {}, {
-      new: true,
+    const korunan = Object.keys(body).filter((k) => KORUNAN_ALANLAR.includes(k));
+    if (korunan.length > 0) {
+      return res.status(400).json({ error: { message: `${korunan.join(", ")} cannot be changed` } });
+    }
+    const event = await Event.findByIdAndUpdate(req.params.id, body, {
+      returnDocument: "after",
       runValidators: true,
     });
-    if (!event) {
-      return notFound(res);
-    }
+    if (!event) return notFound(res);
     res.json(event);
   } catch (err) {
-    handleError(err, res, next);
+    if (isClientError(err)) {
+      return res.status(400).json({ error: { message: err.message } });
+    }
+    next(err);
   }
 };
 
 export const deleteEvent = async (req, res, next) => {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) {
-      return notFound(res);
-    }
+    if (!mongoose.isValidObjectId(req.params.id)) return notFound(res);
     const event = await Event.findByIdAndDelete(req.params.id);
-    if (!event) {
-      return notFound(res);
-    }
+    if (!event) return notFound(res);
     res.status(204).end();
   } catch (err) {
     next(err);
